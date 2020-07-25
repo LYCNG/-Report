@@ -1,0 +1,100 @@
+<%- include("../partials/header") %>
+<script>
+    var cls = true;
+    function clicked() {
+        if(cls){
+            document.getElementById("mySidenav").style.width = "200px";
+            cls = false
+        }else if(!cls){
+            document.getElementById("mySidenav").style.width = "0";
+            cls = true
+        }
+    }
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+<div class="container">
+    <nav class="navbar navbar-dark navbar-expand-lg" style="font-size: 25px;color: white;background-color:rgba(44, 44, 44, 0.904)">
+        <a class="navbar-brand ">
+            <span onclick="clicked()" type="button"><img src="https://img.icons8.com/color/48/000000/city-hall.png"/></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" onclick="clicked()" type="button" >
+                    <%if(currentUser.guild_id===null){%>
+                            您還沒有戰隊喔!
+                    <%}else{%>
+                        <span style="color:rgb(243, 130, 196);font-family:'Times New Roman', Times, serif;">
+                            <%=currentUser.guild_name%>
+                        </span>
+                    <%}%>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="font-weight-bold" id="username">
+                            <%=currentUser.name%>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <%if(currentUser.guild_id===null){%>
+                    <a  href='user/guild/findguild' type="button" class="btn1">加入戰隊</a>
+                    <a  href='user/guild/buildguild' type="button" class="btn1">建立戰隊</a>
+                <%}else{%>
+                    <a href='user/guild/runfight' type="button" class="btn1">戰隊出刀</a>
+                    <a href='user/guild/record' type="button" class="btn1">戰隊出刀紀錄</a>
+                <%}%>
+                <a href="user/background">背景主題</a> 
+            </div>
+        </div>
+    </nav>
+
+    <div id="page" class="container" style="height: 700px;background-color: rgba(207, 207, 207, 0.671);padding-top: 1%;">
+        <div style="text-align: center">
+            <%if(currentUser.guild_id===null){%>
+                <h1>hello walker</h1>
+            <%}else{%>
+                <ul class="list-group list-group-flush" style="margin-top:5%;font-size:25px;">
+                    <li class="list-group-item list-group-item-success">戰隊目前總傷害:   <%=guildinform.total%></li>
+                    <li class="list-group-item list-group-item-success">您的總傷害:   <%=guildinform.yourtotal%></li>
+                </ul>
+                <div class="container">
+                    <div class="alert alert-light" id="announcement">
+                        <h2>公告</h2>
+                    </div>
+                </div>
+
+
+                <div class="Menu"> 
+                    <div class="title">成員列表 : <%=guildinform.totalmembers%></div>
+                    <div class="memberMenu">
+                    <%guildinform.member.forEach(member => {%>
+                        <%if(member.name===guildinform.you){%>
+                            <li class="youitem">
+                                <a>你: <%=member.name%></a>
+                            </li>
+                        <%}else{%>
+                            <li class="item">
+                                <a >成員: <%=member.name%></a>
+                            </li>
+                        <%}%>
+                    <%})%>  
+                    </div>
+            <%}%>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+<%- include("../partials/footer") %>

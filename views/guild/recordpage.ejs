@@ -1,0 +1,110 @@
+
+<%- include("../partials/header") %>
+<script>
+    var cls = true;
+    function clicked() {
+        if(cls){
+            document.getElementById("mySidenav").style.width = "200px";
+            cls = false
+        }else if(!cls){
+            document.getElementById("mySidenav").style.width = "0";
+            cls = true
+        }
+    }
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openData(idname) {
+        var i,tabline
+        tabline = document.getElementsByClassName("tabline")
+        for(i =0;i<tabline.length;i++){
+            tabline[i].style.display ="none"
+        }
+        document.getElementById(idname).style.display="block"
+    }
+
+</script>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="font-size: 25px;color: white;background-color:rgba(44, 44, 44, 0.904)">
+        <a class="navbar-brand ">
+            <span onclick="clicked()" type="button"><img src="https://img.icons8.com/color/48/000000/city-hall.png"/></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" onclick="clicked()" type="button" >
+                    <span style="color:rgb(243, 130, 196);font-family:'Times New Roman', Times, serif;">
+                        <%=currentUser.guild_name%>
+                    </span>
+                </a>
+            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" type="button" onclick="openData('allinfo')">戰隊出刀紀錄</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" type="button" onclick="openData('yourinfo')">您的出刀紀錄</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <a class="font-weight-bold" id="username">
+                    <%=currentUser.name%>
+                </a>
+            </span>
+        </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href='runfight' type="button" class="btn1">戰隊出刀</a>
+            <a href='user/guild/record' type="button" class="btn1">戰隊出刀紀錄</a>
+        </div>
+    </nav>
+
+    <div id="page" class="container" style="height: 700px;background-color: rgba(207, 207, 207, 0.671);padding-top:1%">
+        <table id ="maindata">
+            <thead>
+                <tr>
+                    <th class="datesize"><img id="icon" src="https://img.icons8.com/nolan/32/time.png"/> Date</th>
+                    <th class="usersize"><img id="icon" src="https://img.icons8.com/windows/32/000000/user-male-circle.png"/> User</th>
+                    <th class="weeksize"><img id="icon" src="https://img.icons8.com/color/32/000000/date-from.png"/> 周次</th>
+                    <th class="bosssize"><img id="icon" src="https://img.icons8.com/ios-glyphs/32/000000/hydra.png"/> 王</th>
+                    <th class="damagesize"><img id="icon" src="https://img.icons8.com/ios-filled/32/000000/sword.png"/> 造成傷害</th>
+                    <th class="commentsize"><img id="icon" src="https://img.icons8.com/windows/32/000000/chat-messages--v1.png"/> 備註</th>
+                </tr>
+            </thead>
+        </table> 
+        <div id="allinfo" class="tabline">
+            <table  class="database">
+                    <% records.forEach(function(data){%>
+                        <tr>
+                            <td class="datesize"><%=data.date%></td>
+                            <td class="usersize"><%=data.user_name%></td>
+                            <td class="weeksize"><%=data.week%></td>
+                            <td class="bosssize"><%=data.boss%></td>
+                            <td class="damagesize"><%=data.damage%></td>
+                            <td class="commentsize"><%=data.comment%></td>
+                        </tr> 
+                    <%})%>
+            </table>
+        </div>
+        <div id="yourinfo" class="tabline">
+            <table  class="database">
+                <% records.forEach(function(data){%>
+                    <%if(data.user_name===currentUser.name){%>
+                        <tr>
+                            <td class="datesize"><%=data.date%></td>
+                            <td class="usersize"><%=data.user_name%></td>
+                            <td class="weeksize"><%=data.week%></td>
+                            <td class="bosssize"><%=data.boss%></td>
+                            <td class="damagesize"><%=data.damage%></td>
+                            <td class="commentsize"><%=data.comment%></td>
+                        </tr> 
+                    <%}%>
+                <%})%>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include("../partials/footer") %>

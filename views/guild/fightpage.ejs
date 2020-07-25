@@ -1,0 +1,95 @@
+<%- include("../partials/header") %>
+<script>
+    var a = '<%=currentboss.perhp%>'
+    console.log(a)
+    window.onload =function(){
+        document.getElementById("progress").style.width = a+'%'
+    }
+</script>
+<div class="container" >
+    <nav class="navbar navbar-expand-lg navbar-dark" style="font-size: 25px;color: white;background-color:rgba(44, 44, 44, 0.904)">
+        <a class="navbar-brand ">
+            <span  type="button"><img src="https://img.icons8.com/color/48/000000/city-hall.png"/></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active"  type="button" >
+                    <span style="color:rgb(243, 130, 196);font-family:'Times New Roman', Times, serif;">
+                        <%=currentUser.guild_name%>
+                    </span>
+                </a>
+            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link"></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"></a>
+                </li>
+                <a href="/user" class="btn btn-success">返回上一頁</a>
+            </ul>
+            <span class="navbar-text">
+                <a class="font-weight-bold" id="username">
+                    <%=currentUser.name%>
+                </a>
+            </span>
+        </div>
+    </nav>
+    <div id="page" class="container" style="height: 700px;background-color: rgba(207, 207, 207, 0.671);padding-top: 1%;">
+        <form action="/user/guild/runfight" method="post" id="fightform" onSubmit="javascript:return window.confirm('確認提交嗎？')"> 
+            <div class="form-group" style="margin:auto;padding:1%;width:60%;background-color:rgba(224, 130, 21, 0.719);border-radius:15px;">
+                <p>目前王: <%=currentboss.boss%> 王</p>
+                <a>當前周次: 第 <a id="getweek"><%=currentboss.week%></a> 周&nbsp&nbsp&nbsp&nbsp</a>
+                <a >目前階段: <%=currentboss.stage%> 階段</a>
+
+                <p>剩餘血量: <a id="remainder"><%=currentboss.remainder%></a> </p>
+        
+                <div class="progress" style='width:80%;height:25px;margin:auto;border:2px solid white'>
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" id="progress"  aria-valuenow="<%=currentboss.remainder%>" aria-valuemin="0" aria-valuemax="<%=currentboss.healthbar%>">
+                        <div style="color:black"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-group col-md-6" for="week">周次</label>
+                <input class="custom-select col-md-6" id="week" name="week"  oninput='checkweek()' placeholder="<%=currentboss.week%>" value="<%=currentboss.week%>" required>
+            </div>
+            <div class="form-group">
+                <label class="form-group col-md-6" for="boss">王</label>
+                <select class="custom-select col-md-6" id="boss" name="boss" required>
+                    <option id='bossSelect' selected value="<%=currentboss.boss%>"><%=currentboss.boss%></option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-group col-md-6" for="damage">造成傷害</label>
+                <input class="form-group col-md-6" style="border: 0;height:40px" type="number" id="damage" name="damage" placeholder="請輸入你所造成的傷害" oninput='checkhealth()' required>
+            </div>
+            <div class="form-group">
+                <label  class="form-group col-md-6" for="comment">備註</label>
+            <!--<textarea class="form-control" id="comment" name="comment" rows="1"></textarea>-->
+                <select class="custom-select col-md-6" id="comment" name="comment">
+                    <option selected>請選擇</option>
+                    <option value="正常刀">正常刀</option>
+                    <option value="一刀">一刀</option>
+                    <option value="新黑一刀">新黑一刀</option>
+                    <option value="補償刀">補償刀</option>
+                    <option value="爆刀">爆刀</option>
+                    <option value="爛刀">爛刀</option>
+                    <option value="小小甜心刀">小小甜心刀</option>
+                </select>
+            </div>
+            <button  type="submit" class="btn btn-success" >出刀</button>
+            
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

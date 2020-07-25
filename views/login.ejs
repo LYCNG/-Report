@@ -1,0 +1,26 @@
+<%- include("partials/header") %>
+
+    <div class="login-dark" style = "background-color:rgba(119, 126, 128, 0)">
+        <form action = '/login' method="post" style = "background-color:rgba(153,186,221,0.76)">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"></div>
+            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" >
+                <p id="msg" style="display:none;color:red;font-size:14px">帳號或密碼錯誤</p>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="Email" name="email" placeholder="Your Email" required>
+            </div>
+
+            <div class="form-group"><button onmouseover="btnact(this)" onmouseout="btnre(this)" class="btn btn-info btn-block" type="submit">Login</button></div>
+
+            <div class="form-group">
+                <button class="btn btn-primary text-center" type="button" style='width:30%;margin-left:35%'  onclick="location.href='/register'">Register</button>
+            </div>
+        <a class="forgot" href="#">Forgot your email or password?</a>
+        </form>
+    </div>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,14 @@
+<%- include("../partials/header") %>
+
+<div class="container" style="color:white;">
+    <form action="/user/guild/join" method="post" class="text-justify" id="buildform" onSubmit="javascript:return window.confirm('確認提交嗎？')">
+        <div class="form-group">
+            <h1 class="font-weight-bold">加入戰隊頁面</h1>
+            <label>請輸入戰隊邀請碼</label>
+            <input type="text" class="form-control" name='invite_code' required style="width:200px">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+</div>
+
+<%- include("../partials/footer") %>
